@@ -3,29 +3,32 @@
 #include <time.h>
 #include <unistd.h>
 #include <crypt.h>
+#include <string.h>
      
 int
 main(void)
 {
-  unsigned long seed[2];
-  char salt[] = "$1$........";
-  const char *const seedchars =
-    "./0123456789ABCDEFGHIJKLMNOPQRST"
-    "UVWXYZabcdefghijklmnopqrstuvwxyz";
+  //unsigned long seed[2];
+  //char salt[] = "$1$........";
+  char salt[] = "ab";
   char *password;
-  int i;
-     
-  /* Generate a (not very) random seed.
-     You should do it better than this... */
-  seed[0] = time(NULL);
-  seed[1] = getpid() ^ (seed[0] >> 14 & 0x30000);
-  
-  /* Turn it into printable characters from `seedchars'. */
-  for (i = 0; i < 8; i++)
-    salt[3+i] = seedchars[(seed[i/5] >> (i%5)*6) & 0x3f];
-  
+
+  char text[20];
+  fputs("enter plaintext password: ", stdout);
+  fflush(stdout);
+  if ( fgets(text, sizeof text, stdin) != NULL )
+    {
+      char *newline = strchr(text, '\n'); /* search for newline character */
+      if ( newline != NULL )
+        {
+          *newline = '\0'; /* overwrite trailing newline */
+        }
+      
+    }
+  strncpy(text, salt, 2); /* first 2 chars become salt */
+
   /* Read in the user's password and encrypt it. */
-  password = crypt(getpass("Password:"), salt);
+  password = crypt(text, salt);
      
   /* Print the results. */
   puts(password);
