@@ -1,0 +1,19 @@
+= crypt(3) Demo
+
+This small C program shows a working example of encrypting a string
+using the Unix crypt(3) function.
+
+== Quirks and notes
+
+crypt(3) only uses the first 8 characters of a plaintext
+password. Subsequent characters are ignored.
+
+crypt(3) is implemented in just about every language.
+
+* C#: {Implementation available}[http://www.codeproject.com/Articles/9183/A-C-implementation-of-Unix-crypt]
+* C, C++: in unistd.h
+* Java: {Several implementations available}[http://www.dynamic.net.au/christos/crypt/]
+* Perl: native implementation
+* Ruby: native implementation in String.crypt
+
+
