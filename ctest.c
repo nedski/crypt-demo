@@ -10,7 +10,6 @@ main(void)
 {
   //unsigned long seed[2];
   //char salt[] = "$1$........";
-  char salt[] = "ab";
   char *password;
 
   char text[20];
@@ -25,7 +24,18 @@ main(void)
         }
       
     }
-  strncpy(text, salt, 2); /* first 2 chars become salt */
+  char salt[20];
+  fputs("enter 2-character salt: ", stdout);
+  fflush(stdout);
+  if ( fgets(salt, sizeof salt, stdin) != NULL )
+    {
+      char *newline = strchr(salt, '\n'); /* search for newline character */
+      if ( newline != NULL )
+        {
+          *newline = '\0'; /* overwrite trailing newline */
+        }
+      
+    }
 
   /* Read in the user's password and encrypt it. */
   password = crypt(text, salt);
