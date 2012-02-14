@@ -24,8 +24,9 @@ main(void)
         }
       
     }
-  char salt[20];
-  fputs("enter 2-character salt: ", stdout);
+
+  char salt[3];
+  fputs("  enter 2-character salt: ", stdout);
   fflush(stdout);
   if ( fgets(salt, sizeof salt, stdin) != NULL )
     {
